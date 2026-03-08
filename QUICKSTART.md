@@ -14,7 +14,7 @@ cd /path/to/stock-analyser
 
 ```bash
 # Run everything in sequence
-python3 main.py
+python3 main.py > output.log 2>&1
 ```
 
 ## What Gets Generated
