@@ -1,0 +1,234 @@
+
+======================================================================
+  STOCK ANALYSIS PIPELINE STARTED
+======================================================================
+
+Execution Time: 2026-03-07 22:45:55
+
+
+======================================================================
+  Step 1: Setting Up Directories
+======================================================================
+
+✓ Directories created/verified
+
+======================================================================
+  Step 2: Downloading 2 Weeks of Market Data
+======================================================================
+
+Downloading bhav copy files from NSE...
+Downloading Week 1
+Already exists: sec_bhavdata_full_23022026.csv
+Already exists: sec_bhavdata_full_24022026.csv
+Already exists: sec_bhavdata_full_25022026.csv
+Already exists: sec_bhavdata_full_26022026.csv
+Already exists: sec_bhavdata_full_27022026.csv
+Downloading Week 2
+Already exists: sec_bhavdata_full_02032026.csv
+Already exists: sec_bhavdata_full_04032026.csv
+Already exists: sec_bhavdata_full_05032026.csv
+Already exists: sec_bhavdata_full_06032026.csv
+✓ Download completed
+
+======================================================================
+  Step 3: Filtering NIFTY 50 Stocks
+======================================================================
+
+Processing raw files and filtering NIFTY 50 symbols...
+Processing: sec_bhavdata_full_01012026.csv
+Processing: sec_bhavdata_full_02012026.csv
+Processing: sec_bhavdata_full_02022026.csv
+Processing: sec_bhavdata_full_02032026.csv
+Processing: sec_bhavdata_full_03022026.csv
+Processing: sec_bhavdata_full_03032026.csv
+Processing: sec_bhavdata_full_04022026.csv
+Processing: sec_bhavdata_full_04032026.csv
+Processing: sec_bhavdata_full_05012026.csv
+Processing: sec_bhavdata_full_05022026.csv
+Processing: sec_bhavdata_full_05032026.csv
+Processing: sec_bhavdata_full_06012026.csv
+Processing: sec_bhavdata_full_06022026.csv
+Processing: sec_bhavdata_full_06032026.csv
+Processing: sec_bhavdata_full_07012026.csv
+Processing: sec_bhavdata_full_08012026.csv
+Processing: sec_bhavdata_full_09012026.csv
+Processing: sec_bhavdata_full_09022026.csv
+Processing: sec_bhavdata_full_10022026.csv
+Processing: sec_bhavdata_full_11022026.csv
+Processing: sec_bhavdata_full_12012026.csv
+Processing: sec_bhavdata_full_12022026.csv
+Processing: sec_bhavdata_full_13012026.csv
+Processing: sec_bhavdata_full_13022026.csv
+Processing: sec_bhavdata_full_14012026.csv
+Processing: sec_bhavdata_full_15012026.csv
+Processing: sec_bhavdata_full_16012026.csv
+Processing: sec_bhavdata_full_16022026.csv
+Processing: sec_bhavdata_full_17022026.csv
+Processing: sec_bhavdata_full_18022026.csv
+Processing: sec_bhavdata_full_19012026.csv
+Processing: sec_bhavdata_full_19022026.csv
+Processing: sec_bhavdata_full_20012026.csv
+Processing: sec_bhavdata_full_20022026.csv
+Processing: sec_bhavdata_full_21012026.csv
+Processing: sec_bhavdata_full_22012026.csv
+Processing: sec_bhavdata_full_23012026.csv
+Processing: sec_bhavdata_full_23022026.csv
+Processing: sec_bhavdata_full_24022026.csv
+Processing: sec_bhavdata_full_25022026.csv
+Processing: sec_bhavdata_full_26012026.csv
+Processing: sec_bhavdata_full_26022026.csv
+Processing: sec_bhavdata_full_27012026.csv
+Processing: sec_bhavdata_full_27022026.csv
+Processing: sec_bhavdata_full_28012026.csv
+Processing: sec_bhavdata_full_29012026.csv
+Processing: sec_bhavdata_full_30012026.csv
+Saved: data/processed/filtered_combined.csv
+Total rows: 2350
+✓ Filtering completed
+
+======================================================================
+  Step 4: Weekly Comparison Analysis (Stock Level)
+======================================================================
+
+Comparing week 1 vs week 2 trading metrics...
+Last 2 Weeks Date Ranges:
+Week1: 2026-02-23 to 2026-02-27 (5 files)
+Week2: 2026-03-02 to 2026-03-06 (4 files)
+
+Week1 Raw Files Being Processed:
+  • sec_bhavdata_full_23022026.csv
+  • sec_bhavdata_full_24022026.csv
+  • sec_bhavdata_full_25022026.csv
+  • sec_bhavdata_full_26022026.csv
+  • sec_bhavdata_full_27022026.csv
+
+Week2 Raw Files Being Processed:
+  • sec_bhavdata_full_02032026.csv
+  • sec_bhavdata_full_04032026.csv
+  • sec_bhavdata_full_05032026.csv
+  • sec_bhavdata_full_06032026.csv
+Saved: data/processed/week1_summary.csv
+Saved: data/processed/week2_summary.csv
+Saved: data/output/weekly_comparison.csv
+
+=== Strong Accumulation Stocks (Symbol Level) ===
+
+INDIGO          Delivery Ratio: 3.48  Volume Ratio: 4.34
+ONGC            Delivery Ratio: 3.00  Volume Ratio: 3.73
+BEL             Delivery Ratio: 1.71  Volume Ratio: 2.41
+LT              Delivery Ratio: 1.81  Volume Ratio: 2.16
+RELIANCE        Delivery Ratio: 2.61  Volume Ratio: 2.10
+BAJAJFINSV      Delivery Ratio: 1.97  Volume Ratio: 2.06
+SHRIRAMFIN      Delivery Ratio: 2.13  Volume Ratio: 1.90
+SUNPHARMA       Delivery Ratio: 1.83  Volume Ratio: 1.88
+ADANIPORTS      Delivery Ratio: 2.02  Volume Ratio: 1.84
+HINDALCO        Delivery Ratio: 1.45  Volume Ratio: 1.82
+COALINDIA       Delivery Ratio: 1.34  Volume Ratio: 1.81
+ASIANPAINT      Delivery Ratio: 1.48  Volume Ratio: 1.79
+ITC             Delivery Ratio: 1.64  Volume Ratio: 1.68
+MARUTI          Delivery Ratio: 1.51  Volume Ratio: 1.63
+HDFCLIFE        Delivery Ratio: 1.50  Volume Ratio: 1.59
+JIOFIN          Delivery Ratio: 1.23  Volume Ratio: 1.50
+GRASIM          Delivery Ratio: 1.42  Volume Ratio: 1.47
+BAJAJ-AUTO      Delivery Ratio: 1.59  Volume Ratio: 1.45
+ADANIENT        Delivery Ratio: 1.32  Volume Ratio: 1.44
+BHARTIARTL      Delivery Ratio: 1.40  Volume Ratio: 1.43
+SBILIFE         Delivery Ratio: 1.36  Volume Ratio: 1.40
+TATACONSUM      Delivery Ratio: 1.22  Volume Ratio: 1.39
+TATASTEEL       Delivery Ratio: 1.07  Volume Ratio: 1.38
+M&M             Delivery Ratio: 1.11  Volume Ratio: 1.27
+ULTRACEMCO      Delivery Ratio: 1.07  Volume Ratio: 1.26
+HINDUNILVR      Delivery Ratio: 1.08  Volume Ratio: 1.25
+SBIN            Delivery Ratio: 1.18  Volume Ratio: 1.23
+POWERGRID       Delivery Ratio: 1.22  Volume Ratio: 1.22
+BAJFINANCE      Delivery Ratio: 1.04  Volume Ratio: 1.22
+KOTAKBANK       Delivery Ratio: 1.15  Volume Ratio: 1.22
+✓ Weekly stock comparison completed
+
+======================================================================
+  Step 5: Weekly Industry Comparison Analysis
+======================================================================
+
+Aggregating weekly data at industry level...
+Loading weekly comparison file...
+Aggregating industry data...
+Calculating industry ratios...
+Saved: data/output/weekly_industry_comparison.csv
+
+=== Strong Industries ===
+
+Oil Gas & Consumable Fuels     Delivery Ratio: 2.43  Volume Ratio: 2.69
+Services                       Delivery Ratio: 2.51  Volume Ratio: 2.47
+Capital Goods                  Delivery Ratio: 1.71  Volume Ratio: 2.41
+Construction                   Delivery Ratio: 1.81  Volume Ratio: 2.16
+Fast Moving Consumer Goods     Delivery Ratio: 1.51  Volume Ratio: 1.58
+Consumer Durables              Delivery Ratio: 1.23  Volume Ratio: 1.54
+Metals & Mining                Delivery Ratio: 1.12  Volume Ratio: 1.43
+Telecommunication              Delivery Ratio: 1.40  Volume Ratio: 1.43
+Construction Materials         Delivery Ratio: 1.33  Volume Ratio: 1.42
+Financial Services             Delivery Ratio: 1.09  Volume Ratio: 1.23
+Power                          Delivery Ratio: 1.07  Volume Ratio: 1.12
+✓ Weekly industry comparison completed
+
+======================================================================
+  Step 6: Monthly Comparison Analysis (Stock Level)
+======================================================================
+
+Downloading and processing monthly data...
+Comparing month 1 vs month 2 trading metrics...
+
+Month1 (Older): 2026-01-01 to 2026-01-31
+Month2 (Recent): 2026-02-01 to 2026-02-28
+
+Downloading data...
+
+Processing data...
+
+Month1 (Older) Debug Info:
+Start Date: 2026-01-01
+End Date:   2026-01-30
+Total Trading Days: 22
+
+Month2 (Recent) Debug Info:
+Start Date: 2026-02-02
+End Date:   2026-02-27
+Total Trading Days: 20
+Saved: data/output/monthly_comparison.csv
+
+=== Strong Accumulation Stocks (Symbol Level) ===
+
+INFY            Delivery Ratio: 2.00  Volume Ratio: 2.30
+SBIN            Delivery Ratio: 1.60  Volume Ratio: 1.60
+TCS             Delivery Ratio: 1.34  Volume Ratio: 1.53
+WIPRO           Delivery Ratio: 1.17  Volume Ratio: 1.41
+HCLTECH         Delivery Ratio: 1.32  Volume Ratio: 1.32
+EICHERMOT       Delivery Ratio: 1.05  Volume Ratio: 1.27
+✓ Monthly stock comparison completed
+
+======================================================================
+  Step 7: Monthly Industry Comparison Analysis
+======================================================================
+
+Aggregating monthly data at industry level...
+Saved: data/output/monthly_industry_comparison.csv
+
+=== Strong Industries ===
+
+Information Technology         Delivery Ratio: 1.42  Volume Ratio: 1.62
+Telecommunication              Delivery Ratio: 1.09  Volume Ratio: 1.13
+✓ Monthly industry comparison completed
+
+======================================================================
+  PIPELINE COMPLETED SUCCESSFULLY
+======================================================================
+
+All outputs saved to data/output/
+
+Generated files:
+  • weekly_comparison.csv
+  • weekly_industry_comparison.csv
+  • monthly_comparison.csv
+  • monthly_industry_comparison.csv
+
+Completion Time: 2026-03-07 22:45:56
+
