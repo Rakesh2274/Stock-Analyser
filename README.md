@@ -143,7 +143,7 @@ requests
 - Uses reference_date parameter for testing (defaults to today)
 - NSE files are cached - won't re-download if already present
 
-## COMMAND 
+## ENV AND RUN COMMAND 
 
 # Create virtual environment
 python3 -m venv venv
