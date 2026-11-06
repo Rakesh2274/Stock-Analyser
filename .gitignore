@@ -123,6 +123,14 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Data files (generated output)
+data/raw/
+data/processed/
+data/output/
+
+# Keep folder structure without committing generated files
+!data/.gitkeep
+
 # IDE
 .vscode/
 .idea/
