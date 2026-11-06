@@ -53,9 +53,9 @@ def download_month(month_range):
 
 # ---------- MAIN ----------
 
-def main():
-    today = datetime.today()
-    month1, month2 = get_last_two_completed_months(today)
+def main(reference_date=None):
+    reference_date = datetime.today() if reference_date is None else reference_date
+    month1, month2 = get_last_two_completed_months(reference_date)
 
     print(f"\nMonth1 (Older): {month1[0].date()} to {month1[1].date()}")
     print(f"Month2 (Recent): {month2[0].date()} to {month2[1].date()}")
@@ -99,4 +99,8 @@ def main():
     # Save and print results
     output_path = os.path.join(OUTPUT_DIR, "monthly_comparison.csv")
     save_csv(merged, output_path)
-    print_strong_stocks(merged)
+    print_strong_stocks(
+        merged,
+        top_n=10,
+        save_path=os.path.join(OUTPUT_DIR, "top10_monthly_stocks.csv")
+    )

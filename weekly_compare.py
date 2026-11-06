@@ -21,12 +21,12 @@ def load_data():
     return df
 
 
-def split_weeks(df):
-    """Split data into last 2 calendar weeks based on actual download dates"""
+def split_weeks(df, reference_date=None):
+    """Split data into the configured comparison weeks based on the reference date."""
     df = df.sort_values("DATE1")
     
     # Get the actual last 2 weeks that were downloaded
-    week1_dates, week2_dates = get_last_two_weeks()
+    week1_dates, week2_dates = get_last_two_weeks(reference_date)
     
     # Extract only the dates from our dataframe (remove time component)
     df["DATE_ONLY"] = df["DATE1"].dt.date
@@ -63,9 +63,9 @@ def aggregate_week(df):
     return grouped
 
 
-def main():
+def main(reference_date=None):
     df = load_data()
-    week1, week2 = split_weeks(df)
+    week1, week2 = split_weeks(df, reference_date)
 
     week1_summary = aggregate_week(week1)
     week2_summary = aggregate_week(week2)
@@ -83,7 +83,11 @@ def main():
     # Save and print results
     output_path = os.path.join(OUTPUT_DIR, "weekly_comparison.csv")
     save_csv(merged, output_path)
-    print_strong_stocks(merged)
+    print_strong_stocks(
+        merged,
+        top_n=10,
+        save_path=os.path.join(OUTPUT_DIR, "top10_weekly_stocks.csv")
+    )
 
 
 if __name__ == "__main__":

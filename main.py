@@ -14,6 +14,10 @@ import sys
 from datetime import datetime
 from utils import setup_directories
 
+# For testing a specific day, set this to a fixed date.
+# Set to None to use the real current date.
+REFERENCE_DATE = None  # datetime(2024, 6, 14)  # Example: June 14, 2024
+
 # Import all modules
 import download_bhavcopy
 import filter_nifty50
@@ -30,8 +34,10 @@ def print_header(title):
     print("="*70 + "\n")
 
 
-def run_pipeline():
-    """Run the complete pipeline"""
+def run_pipeline(reference_date=None):
+    """Run the complete pipeline."""
+    if reference_date is None:
+        reference_date = REFERENCE_DATE if REFERENCE_DATE is not None else datetime.today()
     
     try:
         print_header("STOCK ANALYSIS PIPELINE STARTED")
@@ -44,8 +50,9 @@ def run_pipeline():
         
         # Step 2: Download 2 weeks of data
         print_header("Step 2: Downloading 2 Weeks of Market Data")
+        print(f"Reference date: {reference_date.date()}")
         print("Downloading bhav copy files from NSE...")
-        download_bhavcopy.download_last_two_weeks()
+        download_bhavcopy.download_last_two_weeks(reference_date)
         print("✓ Download completed")
         
         # Step 3: Filter NIFTY 50 stocks from all raw files
@@ -57,7 +64,7 @@ def run_pipeline():
         # Step 4: Weekly comparison (stock level)
         print_header("Step 4: Weekly Comparison Analysis (Stock Level)")
         print("Comparing week 1 vs week 2 trading metrics...")
-        weekly_compare.main()
+        weekly_compare.main(reference_date)
         print("✓ Weekly stock comparison completed")
         
         # Step 5: Weekly industry comparison
@@ -70,7 +77,7 @@ def run_pipeline():
         print_header("Step 6: Monthly Comparison Analysis (Stock Level)")
         print("Downloading and processing monthly data...")
         print("Comparing month 1 vs month 2 trading metrics...")
-        monthly_compare.main()
+        monthly_compare.main(reference_date)
         print("✓ Monthly stock comparison completed")
         
         # Step 7: Monthly industry comparison
@@ -84,8 +91,10 @@ def run_pipeline():
         print("All outputs saved to data/output/")
         print("\nGenerated files:")
         print("  • weekly_comparison.csv")
+        print("  • top10_weekly_stocks.csv")
         print("  • weekly_industry_comparison.csv")
         print("  • monthly_comparison.csv")
+        print("  • top10_monthly_stocks.csv")
         print("  • monthly_industry_comparison.csv")
         print(f"\nCompletion Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         
@@ -100,5 +109,5 @@ def run_pipeline():
 
 
 if __name__ == "__main__":
-    success = run_pipeline()
+    success = run_pipeline(REFERENCE_DATE)
     sys.exit(0 if success else 1)

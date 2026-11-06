@@ -83,43 +83,49 @@ def daterange(start_date, end_date):
 
 def get_last_two_weeks(reference_date=None):
     """
-    Get last 2 calendar weeks of trading days (Mon-Fri only).
-    Automatically skips weekends and NSE holidays.
-    Returns up to 10 files (up to 5 per week).
-    
-    Example: If today is March 7, 2026 (Saturday)
-    Week1 (Previous): Feb 23-27 (Mon-Fri)
-    Week2 (Current): Mar 2-6 (Mon-Fri, excluding Mar 3 holiday)
-    Result: 9 files total
+    Return the two weekly comparison windows used for the stock analysis.
+
+    Business rule:
+    - If today is Friday, compare current week vs previous week.
+    - Otherwise, compare previous 2nd week vs previous 1st week.
+
+    Example: if today is Tuesday, we compare (Week-2) vs (Week-1)
+    instead of (Current Week) vs (Week-1).
     """
     if reference_date is None:
         reference_date = datetime.today()
-    
+
     # Convert to date-only to avoid time component mismatches
     reference_date = datetime.combine(reference_date.date(), datetime.min.time())
 
-    # Find Monday of current week
+    # Monday of the current calendar week
     days_since_monday = reference_date.weekday()
-    week2_monday = reference_date - timedelta(days=days_since_monday)
-    
-    # Previous week Monday (7 days before)
-    week1_monday = week2_monday - timedelta(days=7)
-    
+    current_week_monday = reference_date - timedelta(days=days_since_monday)
+
+    # Friday comparison window: current week vs previous week
+    # Non-Friday comparison window: previous 2nd week vs previous 1st week
+    if reference_date.weekday() == 4:  # Friday
+        week2_monday = current_week_monday
+        week1_monday = current_week_monday - timedelta(days=7)
+    else:
+        week2_monday = current_week_monday - timedelta(days=7)
+        week1_monday = week2_monday - timedelta(days=7)
+
     week1 = []
     week2 = []
-    
+
     # Week 1: Mon-Fri (skip holidays)
     for i in range(5):
         date = week1_monday + timedelta(days=i)
         if date.weekday() < 5 and date not in NSE_HOLIDAYS_2026:  # Weekday AND not holiday
             week1.append(date)
-    
+
     # Week 2: Mon-Fri (skip holidays)
     for i in range(5):
         date = week2_monday + timedelta(days=i)
         if date.weekday() < 5 and date not in NSE_HOLIDAYS_2026:  # Weekday AND not holiday
             week2.append(date)
-    
+
     return week1, week2
 
 
@@ -243,23 +249,29 @@ def add_industry_data(df, nifty50_df):
 
 # ============ PRINTING & OUTPUT ============
 
-def print_strong_stocks(df, threshold=1.2):
-    """Print strong accumulation stocks"""
+def print_strong_stocks(df, threshold=1.2, top_n=10, save_path=None):
+    """Print and optionally save the top strong accumulation stocks."""
     strong = df[df["TTL_TRD_RATIO"] > threshold].copy()
-    strong = strong.sort_values(by="TTL_TRD_RATIO", ascending=False)
+    strong = strong.sort_values(by=["TTL_TRD_RATIO", "DELIV_RATIO"], ascending=[False, False])
+    top_stocks = strong.head(top_n).copy()
 
-    print("\n=== Strong Accumulation Stocks (Symbol Level) ===\n")
+    print(f"\n=== Top {len(top_stocks)} Strong Accumulation Stocks (Symbol Level) ===\n")
 
-    if strong.empty:
+    if top_stocks.empty:
         print("No stocks found")
-        return
+        return top_stocks
 
-    for _, row in strong.iterrows():
+    for _, row in top_stocks.iterrows():
         print(
             f"{row['SYMBOL']:15} "
             f"Delivery Ratio: {row['DELIV_RATIO']:.2f}  "
             f"Volume Ratio: {row['TTL_TRD_RATIO']:.2f}"
         )
+
+    if save_path:
+        save_csv(top_stocks, save_path)
+
+    return top_stocks
 
 
 def print_strong_industries(df, threshold=1.1):
